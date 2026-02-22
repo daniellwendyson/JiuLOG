@@ -1,0 +1,65 @@
+/* Estilos específicos do dashboard do aluno - Usa variáveis do theme.css */
+
+/* Faixas de jiu-jitsu - cores específicas */
+.faixa-branca {
+    background: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+}
+
+.faixa-azul {
+    background: #1e90ff;
+    color: #fff;
+}
+
+.faixa-roxa {
+    background: #8a2be2;
+    color: #fff;
+}
+
+.faixa-marrom {
+    background: #8b4513;
+    color: #fff;
+}
+
+.faixa-preta {
+    background: #000;
+    color: #fff;
+}
+
+.aluno-faixa-grau {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.aluno-faixa {
+    padding: 5px 10px;
+    border-radius: 50px;
+    border: none;
+}
+
+.aluno-grau {
+    padding: 5px 10px;
+    border-radius: 50px;
+    border: none;
+}
+
+/* Ajustes específicos de layout do aluno */
+.conta-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 0;
+    margin: 20px auto;
+    max-width: 95%;
+}
+
+@media (max-width: 768px) {
+    .conta-form {
+        grid-template-columns: 1fr;
+    }
+}

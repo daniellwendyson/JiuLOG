@@ -1,17 +1,171 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JiuLOG - Bem-vindo</title>
-<link rel="stylesheet" href="css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JiuLOG - Login e Cadastro</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon/jiu_jitsu2.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="public/css/index.css">
 </head>
 <body>
-<div class="container">
-    <h2>Bem-vindo ao JiuLOG</h2>
-    <p>Escolha seu tipo de login:</p>
-    <button onclick="window.location.href='login_aluno.html'">Sou Aluno</button>
-    <button onclick="window.location.href='login_professor.html'">Sou Professor</button>
-</div>
+    <!-- Partículas -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Container principal -->
+    <div class="auth-container">
+        <!-- Header -->
+        <div class="auth-header">
+            <div class="logo">
+                <i class="fas fa-fist-raised"></i>
+                <span>JiuLOG</span>
+            </div>
+            <h1 id="header-title">Bem-vindo</h1>
+        </div>
+
+        <!-- Tabs de tipo de usuário -->
+        <div class="user-type-tabs">
+            <div class="user-type-tab active" data-type="aluno">
+                <i class="fas fa-user-graduate"></i>
+                <span>Aluno</span>
+            </div>
+            <div class="user-type-tab" data-type="professor">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Professor</span>
+            </div>
+        </div>
+
+        <!-- Tabs de ação -->
+        <div class="action-tabs">
+            <div class="action-tab active" data-action="login">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </div>
+            <div class="action-tab" data-action="cadastro">
+                <i class="fas fa-user-plus"></i> Cadastrar
+            </div>
+        </div>
+
+        <!-- Alertas -->
+        <div id="alert-container" class="auth-forms"></div>
+
+        <!-- Formulários -->
+        <div class="auth-forms">
+            <!-- Login Aluno -->
+            <form id="form-login-aluno" class="form-panel active" method="POST" action="api/auth/login_aluno.php">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Digite seu email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar como Aluno
+                </button>
+            </form>
+
+            <!-- Cadastro Aluno -->
+            <form id="form-cadastro-aluno" class="form-panel" method="POST" action="api/auth/cadastro_aluno.php">
+                <div class="form-group">
+                    <input type="text" name="nome" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--text-dark);font-size:14px;">
+                        Academia (opcional)
+                    </label>
+                    <div class="academia-search-wrapper">
+                        <input type="text" 
+                               id="academia_search_aluno" 
+                               placeholder="Pesquisar academia por nome..."
+                               autocomplete="off">
+                        <input type="hidden" id="academia_id_aluno" name="academia_id" value="">
+                        <div id="academia_results_aluno" class="academia-results"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i>
+                    Cadastrar como Aluno
+                </button>
+            </form>
+
+            <!-- Login Professor -->
+            <form id="form-login-professor" class="form-panel" method="POST" action="api/auth/login_professor.php">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Digite seu email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar como Professor
+                </button>
+            </form>
+
+            <!-- Cadastro Professor -->
+            <form id="form-cadastro-professor" class="form-panel" method="POST" action="api/auth/cadastro_professor.php" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" name="nome" placeholder="Nome completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="form-group">
+                    <label style="display:block;margin-bottom:8px;font-weight:600;color:var(--text-dark);font-size:14px;">
+                        Academia
+                    </label>
+                    <div class="academia-option-toggle">
+                        <div class="academia-option-btn active" data-option="nova">
+                            <i class="fas fa-plus-circle"></i> Criar Nova
+                        </div>
+                        <div class="academia-option-btn" data-option="existente">
+                            <i class="fas fa-search"></i> Usar Existente
+                        </div>
+                    </div>
+                    <div id="academia-nova-container">
+                        <input type="text" name="academia_nome" id="academia_nome_nova" placeholder="Nome da nova academia" required>
+                    </div>
+                    <div id="academia-existente-container" style="display: none;">
+                        <div class="academia-search-wrapper">
+                            <input type="text" 
+                                   id="academia_search_professor" 
+                                   placeholder="Pesquisar academia por nome..."
+                                   autocomplete="off">
+                            <input type="hidden" id="academia_id_professor" value="">
+                            <div id="academia_results_professor" class="academia-results"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="file-input-wrapper">
+                        <input type="file" name="academia_logo" id="academia_logo" accept="image/*">
+                        <label for="academia_logo" class="file-input-label">
+                            <i class="fas fa-image"></i>
+                            <span id="file-label-text">Logomarca da academia (opcional)</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i>
+                    Cadastrar como Professor
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="public/js/script.js"></script>
 </body>
 </html>
+
